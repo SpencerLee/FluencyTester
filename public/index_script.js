@@ -31,5 +31,3 @@ socket.on('user-answer', function(ans) {
   $('#messages').append(new_ans);
   $('body,html').animate({scrollTop: $('#messages li:last-child').offset().top + 5 + 'px'}, 5);
 });
-
-
