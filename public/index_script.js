@@ -1,33 +1,35 @@
 var socket = io();
 
 // When the user clicks on send button
-$('#msg-click').click(function(){
+$('#answer-click').click(function(){
   sendMessage();
+
 });
 
 // Or the user presses enter from the text box
-$('#msg').keydown(function(event) {
+$('#answer').keydown(function(event) {
   if (event.keyCode == 13) {
     sendMessage();
   }
 });
 
-var sendMessage = function() {
-  socket.emit('message', $('#msg').val());
 
-  $('#msg').val('');
+
+var sendMessage = function() {
+  socket.emit('submitAnswer', $('#answer').val());
+
+  $('#answer').val('');
 };
 
-var submitAnswer = function() {
-	socket.emit('message', $('#msg'.val(), )
-
-		$(#'msg').val('');
-		)};
-
-
+socket.on('new-question', function(currentQuestion) {
+	$('#question').text(currentQuestion);
+	console.log('new question generated');
+});
 // When we receive a user message, add to html list
-socket.on('user-message', function(msg) {
-  var new_msg = $('<li>').text(msg);
-  $('#messages').append(new_msg);
+socket.on('user-answer', function(ans) {
+  var new_ans = $('<li>').text(ans);
+  $('#messages').append(new_ans);
   $('body,html').animate({scrollTop: $('#messages li:last-child').offset().top + 5 + 'px'}, 5);
 });
+
+
